@@ -1,4 +1,9 @@
 {
+  "name": "mini-messageboard",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
     "ejs": "^6.0.1",
     "express": "^5.2.1"
