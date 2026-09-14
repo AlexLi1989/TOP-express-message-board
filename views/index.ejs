@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/head') %>
+  <body>
+    <%- include('partials/nav') %>
+    <main>
+      <h1>Index</h1>
+      <% for (let message of messages) { %>
+        <h2><%= message.user %></h2>
+        <p><%= message.text %></p>
+        <p><%= message.added.toLocaleDateString() %><p/>
+        <a href="/message/<%= message.id %>">Open</a>
+      <% } %>
+    </main>
+  </body>
+</html>
