@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "node server.js",
-    "db:init": "node populatedb.js"
+    "db:init": "node db/populatedb.js"
   },
   "dependencies": {
     "dotenv": "^17.4.2",
