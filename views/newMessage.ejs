@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("partials/head") %>
+  <body>
+    <%- include("partials/nav") %>
+    <main>
+      <h1>New Message</h1>
+
+      <form method="POST" action="/new">
+
+      <div>
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" value="<%= message.name || '' %>" required/>
+      </div>
+
+      <div>
+        <label for="message">Your Message:</label>
+        <textarea id="message" name="message" required placeholder="Type your message here" maxlength="255" minlength="2" ><%= message.message || '' %></textarea>
+      </div>
+
+      <%- include("partials/errors.ejs") %>
+      <button type="submit">Submit</button>
+      </form>
+
+    </main>
+  </body>
+</html>

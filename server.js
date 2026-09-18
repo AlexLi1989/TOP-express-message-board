@@ -1,20 +1,38 @@
 const express = require("express");
 const app = express();
 const path = require("node:path");
-const PORT = process.env.PORT || 8080;
-const indexRouter = require("./routes/indexRouter");
-const newRouter = require("./routes/newRouter");
 
+require("dotenv").config(); //for parsing the env variables
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-//for static resources
-app.use(express.static(path.join(__dirname, "public")));
-//for parsing the form data
+app.use(express.static(path.join(__dirname, "public"))); //for static resources
 app.use(express.urlencoded({ extended: true }));
+//for parsing the form data
+
+const indexRouter = require("./routes/indexRouter");
+const newMessageRouter = require("./routes/newMessageRouter");
+const messageRouter = require("./routes/messageRouter");
 
 app.use("/", indexRouter);
-app.use("/new", newRouter);
+app.use("/new", newMessageRouter);
+app.use("/message", messageRouter);
+//404 route
+app.use((req, res) => {
+  res.status(404).render("404", { TITLE: "404 Not Found" });
+});
+//500 route
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).render("500", { TITLE: "500 Internal Server Error" });
+});
 
-app.use((req, res) => res.status(404).render("404", { TITLE: "Error" }));
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+const PORT = process.env.PORT || 8080;
+
+const server = app.listen(PORT, () => {
+  console.log(`PostgreSQL practice - listening on port ${PORT}!`);
+});
+
+server.on("error", (error) => {
+  console.error("server failed to start, error : ", error.message);
+  throw error;
 });
